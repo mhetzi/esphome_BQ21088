@@ -1,0 +1,16 @@
+# this configuration file has all empty components set up.
+# use 'esphome compile test_empty_components.yaml' to build.
+
+packages:
+  device: !include device.yaml  # include our test device setup
+
+i2c:
+  sda: 22
+  scl: 23
+  scan: True
+  id: bus_a
+  frequency: 50kHz
+
+
+bq21088:
+  i2c_id: bus_a
