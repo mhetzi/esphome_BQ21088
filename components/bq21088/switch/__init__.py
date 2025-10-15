@@ -8,7 +8,7 @@ from .. import (
     CONF_BQ_ID
 )
 
-DEPENDENCIES = ["BQ21088"]
+DEPENDENCIES = ["bq21088"]
 
 BqSwitch = bq21088_ns.class_("BqSwitch", switch.Switch)
 BqSwitchTypeEnum = BqSwitch.enum("SwitchType", True)
@@ -18,7 +18,7 @@ CONF_CHG = "CHARGE_DISABLE"
 CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(CONF_BQ_ID): cv.use_id(BQ21088),
-        cv.Optional(CONF_CHG): switch.switch_schema(
+        cv.Optional(CONF_CHG.lower()): switch.switch_schema(
             BqSwitch,
 
         ),

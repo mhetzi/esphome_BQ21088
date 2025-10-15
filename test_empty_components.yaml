@@ -14,3 +14,10 @@ i2c:
 
 bq21088:
   i2c_id: bus_a
+  id: bq_test
+
+switch:
+  - platform: bq21088
+    bq21088_id: bq_test
+    charge_disable:
+      name: Laden deaktivieren

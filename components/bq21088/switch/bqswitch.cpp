@@ -3,7 +3,7 @@
 
 namespace esphome {
 namespace bq21088 {
-    static const char* BqSwitch::TAG = "BQ21088.Number"; 
+    static const char* TAG = "BQ21088.Switch"; 
     void BqSwitch::write_state(bool state){
         switch (this->nt) {
             case SwitchType::CHARGE_DISABLE: {
@@ -21,7 +21,7 @@ namespace bq21088 {
         this->parent = parent;
     }
 
-    void BqSwitch::set_type(NumberType nt) {
+    void BqSwitch::set_type(SwitchType nt) {
         this->nt = nt;
     }
 }

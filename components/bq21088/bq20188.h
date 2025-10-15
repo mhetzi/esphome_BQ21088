@@ -3,7 +3,7 @@
 #include "esphome/core/component.h"
 #include "esphome/components/i2c/i2c.h"
 #include "esphome/core/log.h"
-#include "bg20188_reg.h"
+#include "bq20188_reg.h"
 #ifdef USE_BINARY_SENSOR
 #include "esphome/components/binary_sensor/binary_sensor.h"
 #endif

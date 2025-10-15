@@ -1,4 +1,4 @@
-#include "bg20188.h"
+#include "bq20188.h"
 
 namespace esphome {
 namespace bq21088 {
