@@ -21,3 +21,17 @@ switch:
     bq21088_id: bq_test
     charge_disable:
       name: Laden deaktivieren
+
+number:
+  - platform: bq21088
+    bq21088_id: bq_test
+    vbat:
+      name: Battery Endladespannung
+    icgh:
+      name: Battery Ladestrom
+
+sensor:
+  - platform: bq21088
+    bq21088_id: bq_test
+    charge_status:
+      name: Ladezustand

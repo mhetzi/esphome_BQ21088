@@ -1,9 +1,9 @@
 #include "bqnum.h"
 
-static const char* esphome::bq21088::BqNumber::TAG = "BQ21088.Number"; 
+static const char* TAG = "BQ21088.Number"; 
 
 void esphome::bq21088::BqNumber::control(float value) {
-    if (this->nt == nullptr) {
+    if (this->nt == NumberType::NT_UNKNOWN) {
         return;
     }
 

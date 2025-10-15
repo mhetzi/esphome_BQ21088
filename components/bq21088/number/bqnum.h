@@ -1,16 +1,16 @@
 #pragma once
 
 #include "esphome/components/number/number.h"
-#include "bq21088/bg20188.h"
+#include "../bq20188.h"
 
 namespace esphome {
 namespace bq21088 {
 
-enum NumberType : uint8_t {
+enum NumberType {
     VBAT = 0,
     ICGH,
-    UNKNOWN
-}
+    NT_UNKNOWN
+};
 
 class BqNumber: public esphome::number::Number {
     protected:
@@ -21,9 +21,8 @@ class BqNumber: public esphome::number::Number {
 
     private:
         BQ21088 *parent = nullptr;
-        NumberType nt = NumberType::UNKNOWN;
-        static const char* TAG;
-}
+        NumberType nt = NumberType::NT_UNKNOWN;
+};
 
 }
 }

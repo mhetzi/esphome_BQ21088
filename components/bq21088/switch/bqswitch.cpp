@@ -5,7 +5,7 @@ namespace esphome {
 namespace bq21088 {
     static const char* TAG = "BQ21088.Switch"; 
     void BqSwitch::write_state(bool state){
-        switch (this->nt) {
+        switch (this->st) {
             case SwitchType::CHARGE_DISABLE: {
                 auto charge = this->parent->read_ichg_ctrl();
                 charge.CHG_DIS = state;
@@ -21,8 +21,8 @@ namespace bq21088 {
         this->parent = parent;
     }
 
-    void BqSwitch::set_type(SwitchType nt) {
-        this->nt = nt;
+    void BqSwitch::set_type(SwitchType st) {
+        this->st = st;
     }
 }
 }

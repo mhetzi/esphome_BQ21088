@@ -8,7 +8,7 @@ namespace bq21088 {
 
 enum SwitchType {
     CHARGE_DISABLE = 0,
-    UNKNOWN
+    ST_UNKNOWN
 };
 
 class BqSwitch: public esphome::switch_::Switch {
@@ -16,11 +16,11 @@ class BqSwitch: public esphome::switch_::Switch {
         friend class BQ21088;
         void write_state(bool state) override;
         void set_parent(BQ21088* parent);
-        void set_type(SwitchType nt);
+        void set_type(SwitchType st);
 
     private:
         BQ21088 *parent = nullptr;
-        SwitchType nt = SwitchType::UNKNOWN;
+        SwitchType st = SwitchType::ST_UNKNOWN;
 };
 
 }

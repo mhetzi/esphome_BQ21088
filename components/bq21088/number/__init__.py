@@ -1,6 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import number
+from esphome.const import DEVICE_CLASS_CURRENT, DEVICE_CLASS_VOLTAGE, ENTITY_CATEGORY_CONFIG, ENTITY_CATEGORY_DIAGNOSTIC
 
 from .. import (
     bq21088_ns,
@@ -8,7 +9,7 @@ from .. import (
     CONF_BQ_ID
 )
 
-DEPENDENCIES = ["BQ21088"]
+DEPENDENCIES = ["bq21088"]
 
 BqNumber = bq21088_ns.class_("BqNumber", number.Number)
 BqNumberTypeEnum = BqNumber.enum("NumberType", True)
@@ -19,13 +20,18 @@ CONF_VBAT = ("VBAT", 3.6, 4.65, 0.05)
 CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(CONF_BQ_ID): cv.use_id(BQ21088),
-        cv.Optional(CONF_ICHG[0]): number.number_schema(
+        cv.Optional(CONF_ICHG[0].lower()): number.number_schema(
             BqNumber,
+            unit_of_measurement="mA",
+            device_class=DEVICE_CLASS_CURRENT,
+            entity_category=ENTITY_CATEGORY_CONFIG
 
         ),
-        cv.Optional(CONF_VBAT[0]): number.number_schema(
+        cv.Optional(CONF_VBAT[0].lower()): number.number_schema(
             BqNumber,
-
+            unit_of_measurement="V",
+            device_class=DEVICE_CLASS_VOLTAGE,
+            entity_category=ENTITY_CATEGORY_CONFIG
         ),
     })
 
