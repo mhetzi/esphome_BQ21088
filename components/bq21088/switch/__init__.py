@@ -33,3 +33,6 @@ async def to_code(config):
             cg.add(var.set_parent(parent))
             sensor_type_value = getattr(BqSwitchTypeEnum, switch_type.upper())
             cg.add(var.set_type(sensor_type_value))
+
+            if switch_type == CONF_CHG:
+                cg.add(parent.setChargeDisabledSwitch(var))

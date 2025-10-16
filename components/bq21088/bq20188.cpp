@@ -2,7 +2,7 @@
 
 namespace esphome {
 namespace bq21088 {
-const char *BQ21088::TAG = "bq21088";
+const char *TAG = "bq21088";
 
 void BQ21088::dump_config() {
   ESP_LOGCONFIG(TAG, "BQ21088:");

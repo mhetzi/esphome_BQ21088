@@ -44,3 +44,7 @@ async def to_code(config):
             cg.add(var.set_parent(parent))
             sensor_type_value = getattr(BqNumberTypeEnum, sensor_type[0].upper())
             cg.add(var.set_type(sensor_type_value))
+            if sensor_type[0] == CONF_ICHG[0]:
+                cg.add(parent.setIcgh(var))
+            elif sensor_type[0] == CONF_VBAT[0]:
+                cg.add(parent.setVbatReg(var))

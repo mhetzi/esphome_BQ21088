@@ -4,6 +4,7 @@
 #include "esphome/components/i2c/i2c.h"
 #include "esphome/core/log.h"
 #include "bq20188_reg.h"
+#include "esphome/core/defines.h"
 #ifdef USE_BINARY_SENSOR
 #include "esphome/components/binary_sensor/binary_sensor.h"
 #endif
@@ -74,9 +75,6 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
     #ifdef USE_SWITCH
     void setChargeDisabledSwitch(esphome::_switch::Switch *sw) { this->chg_disable_switch_ = sw; };
     #endif
-
- protected:
-   static const char *TAG;
 
  private:
    
