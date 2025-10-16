@@ -35,3 +35,13 @@ sensor:
     bq21088_id: bq_test
     charge_status:
       name: Ladezustand
+
+binary_sensor:
+  - platform: bq21088
+    bq21088_id: bq_test
+    vin_pwr_good:
+      name: VIN Power good
+    batt_ocp_fault:
+      name: "Battery Overcurrent Protection"
+    batt_uvlo_fault:
+      name: "Battery Undervoltage Protection"
