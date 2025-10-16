@@ -3,7 +3,7 @@ import esphome.config_validation as cv
 from esphome.components import sensor
 from esphome.const import ENTITY_CATEGORY_DIAGNOSTIC
 
-from .. import (
+from . import (
     bq21088_ns,
     BQ21088,
     CONF_BQ_ID
