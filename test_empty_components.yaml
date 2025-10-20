@@ -11,10 +11,14 @@ i2c:
   id: bus_a
   frequency: 50kHz
 
-
 bq21088:
   i2c_id: bus_a
   id: bq_test
+  int_pin:
+    number: 25
+    mode: 
+      pullup: true
+      input: true
 
 switch:
   - platform: bq21088

@@ -181,6 +181,20 @@ esphome::i2c::ErrorCode BQ21088::write_mask_id(const MASK_ID &mask_id) {
   return this->write_register(0xC, &val, 1);
 }
 
+void bootstrap_alarm(BQ21088* self){
+  self->update();
+}
+
+void BQ21088::setAlarmInput(esphome::InternalGPIOPin *alarm_pin){
+  this->alarm_pin = alarm_pin;
+  if (alarm_pin == nullptr){
+    return;
+  }
+  if (alarm_pin->is_internal()){
+    alarm_pin->attach_interrupt(&bootstrap_alarm, this, gpio::InterruptType::INTERRUPT_LOW_LEVEL);
+  }
+}
+
 void BQ21088::setup() {
   
 }

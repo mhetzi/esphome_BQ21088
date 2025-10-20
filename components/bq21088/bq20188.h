@@ -18,6 +18,8 @@
 #include "esphome/components/switch/switch.h"
 #endif
 
+#include "esphome/core/gpio.h"
+
 namespace esphome {
 namespace bq21088 {
 
@@ -76,6 +78,8 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
     void setChargeDisabledSwitch(switch_::Switch *sw) { this->chg_disable_switch_ = sw; };
     #endif
 
+    void setAlarmInput(esphome::InternalGPIOPin *alarm_pin);
+
  private:
    
     #ifdef USE_BINARY_SENSOR
@@ -95,6 +99,8 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
     #ifdef USE_SWITCH
     switch_::Switch *chg_disable_switch_{nullptr};
     #endif
+
+    esphome::InternalGPIOPin *alarm_pin{nullptr};
 };
 
 } // namespace bq21088

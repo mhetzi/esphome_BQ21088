@@ -13,7 +13,8 @@ logger:
 external_components:
   - source:
       type: git
-      url: https://github.com/mhetzi/esphome_BQ21088.git
+      url: file:///run/media/Data/syncthing/programming/SDKs/esphome/esphome_BQ21088
+      ref: main
     components: [bq21088]
-    refresh: 30min
+    refresh: always
 
