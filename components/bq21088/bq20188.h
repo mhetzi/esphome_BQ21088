@@ -73,7 +73,7 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
     void setChgStatus (sensor::Sensor *chg_status_sensor_ ) {this->chg_status_sensor_ = chg_status_sensor_;};
     #endif
     #ifdef USE_SWITCH
-    void setChargeDisabledSwitch(esphome::_switch::Switch *sw) { this->chg_disable_switch_ = sw; };
+    void setChargeDisabledSwitch(switch_::Switch *sw) { this->chg_disable_switch_ = sw; };
     #endif
 
  private:
@@ -93,7 +93,7 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
     #endif
 
     #ifdef USE_SWITCH
-    switch::Switch *chg_disable_switch_{nullptr};
+    switch_::Switch *chg_disable_switch_{nullptr};
     #endif
 };
 
