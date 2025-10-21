@@ -16,7 +16,7 @@ BQ21088 = bq21088_ns.class_('BQ21088', cg.PollingComponent, i2c.I2CDevice)
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(BQ21088),
     cv.Optional(CONF_PIN): pins.internal_gpio_input_pin_schema
-}).extend(cv.COMPONENT_SCHEMA).extend(i2c.i2c_device_schema(default_address=0x6A))
+}).extend(cv.polling_component_schema("1min")).extend(i2c.i2c_device_schema(default_address=0x6A))
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])

@@ -38,6 +38,8 @@ async def to_code(config):
     for sens in [CONF_VIN_POWER_GOOD, CONF_OCP_FAULT]:
         if conf := config.get(sens):
             var = await binary_sensor.new_binary_sensor(conf)
+            await binary_sensor.register_binary_sensor(var, conf)
+
             if sens == CONF_VIN_POWER_GOOD:
                 cg.add(parent.setVinPgood(var))
             elif sens == CONF_OCP_FAULT:

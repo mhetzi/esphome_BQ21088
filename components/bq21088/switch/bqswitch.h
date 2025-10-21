@@ -15,6 +15,7 @@ class BqSwitch: public esphome::switch_::Switch {
     protected:
         friend class BQ21088;
         void write_state(bool state) override;
+    public:
         void set_parent(BQ21088* parent);
         void set_type(SwitchType st);
 

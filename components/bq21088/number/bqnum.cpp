@@ -39,4 +39,5 @@ void esphome::bq21088::BqNumber::set_parent(BQ21088 *parent) {
 
 void esphome::bq21088::BqNumber::set_type(NumberType nt) {
     this->nt = nt;
+    ESP_LOGD(TAG, "I am now %d Type!", nt);
 }

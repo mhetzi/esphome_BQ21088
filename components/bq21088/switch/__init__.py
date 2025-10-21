@@ -11,7 +11,7 @@ from .. import (
 DEPENDENCIES = ["bq21088"]
 
 BqSwitch = bq21088_ns.class_("BqSwitch", switch.Switch)
-BqSwitchTypeEnum = BqSwitch.enum("SwitchType", True)
+BqSwitchTypeEnum = bq21088_ns.enum("SwitchType", True)
 
 CONF_CHG = "CHARGE_DISABLE"
 
@@ -28,7 +28,7 @@ async def to_code(config):
     parent = await cg.get_variable(config[CONF_BQ_ID])
 
     for switch_type in [CONF_CHG]:
-        if conf := config.get(switch_type[0]):
+        if conf := config.get(switch_type.lower()):
             var = await switch.new_switch(conf)
             cg.add(var.set_parent(parent))
             sensor_type_value = getattr(BqSwitchTypeEnum, switch_type.upper())

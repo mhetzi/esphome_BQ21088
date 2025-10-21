@@ -28,6 +28,8 @@ async def to_code(config):
     for sens in [CONF_CHG_STAT]:
         if conf := config.get(sens):
             var = await sensor.new_sensor(conf)
+            await sensor.register_sensor(var, conf)
+
             if sens == CONF_CHG_STAT:
                 cg.add(parent.setChgStatus(var))
             else:

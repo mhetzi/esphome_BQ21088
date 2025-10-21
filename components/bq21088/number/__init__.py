@@ -12,7 +12,7 @@ from .. import (
 DEPENDENCIES = ["bq21088"]
 
 BqNumber = bq21088_ns.class_("BqNumber", number.Number)
-BqNumberTypeEnum = BqNumber.enum("NumberType", True)
+BqNumberTypeEnum = bq21088_ns.enum("NumberType", True)
 
 CONF_ICHG = ("ICGH", 0.005, 1.0, 0.005)
 CONF_VBAT = ("VBAT", 3.6, 4.65, 0.05)
@@ -39,8 +39,9 @@ async def to_code(config):
     parent = await cg.get_variable(config[CONF_BQ_ID])
 
     for sensor_type in [CONF_ICHG, CONF_VBAT]:
-        if conf := config.get(sensor_type[0]):
+        if conf := config.get(sensor_type[0].lower()):
             var = await number.new_number(conf, min_value=sensor_type[1], max_value=sensor_type[2], step=sensor_type[3])
+
             cg.add(var.set_parent(parent))
             sensor_type_value = getattr(BqNumberTypeEnum, sensor_type[0].upper())
             cg.add(var.set_type(sensor_type_value))
@@ -48,3 +49,6 @@ async def to_code(config):
                 cg.add(parent.setIcgh(var))
             elif sensor_type[0] == CONF_VBAT[0]:
                 cg.add(parent.setVbatReg(var))
+        else:
+            print(f"Skip {sensor_type=}")
+                
