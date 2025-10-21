@@ -35,7 +35,7 @@ CONFIG_SCHEMA = cv.Schema(
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_BQ_ID])
 
-    for sens in [CONF_VIN_POWER_GOOD, CONF_OCP_FAULT]:
+    for sens in [CONF_VIN_POWER_GOOD, CONF_OCP_FAULT, CONF_BUVLO_FAULT]:
         if conf := config.get(sens):
             var = await binary_sensor.new_binary_sensor(conf)
             await binary_sensor.register_binary_sensor(var, conf)
@@ -44,7 +44,7 @@ async def to_code(config):
                 cg.add(parent.setVinPgood(var))
             elif sens == CONF_OCP_FAULT:
                 cg.add(parent.setBatOcPFault(var))
-            elif sens == CONF_OCP_FAULT:
+            elif sens == CONF_BUVLO_FAULT:
                 cg.add(parent.setBuvloFault(var))
             else:
                 print("bq21088 no valid sensor in match case!")

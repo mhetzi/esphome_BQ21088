@@ -14,15 +14,16 @@ DEPENDENCIES = ["bq21088"]
 BqNumber = bq21088_ns.class_("BqNumber", number.Number)
 BqNumberTypeEnum = bq21088_ns.enum("NumberType", True)
 
-CONF_ICHG = ("ICGH", 0.005, 1.0, 0.005)
-CONF_VBAT = ("VBAT", 3.6, 4.65, 0.05)
+CONF_ICHG   = ("ICGH",  0.005, 1.0, 0.005)
+CONF_VBAT   = ("VBAT",  3.6, 4.65, 0.05)
+CONF_BUVLO  = ("BUVLO", 2.0, 3.0, 0.2)
 
 CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(CONF_BQ_ID): cv.use_id(BQ21088),
         cv.Optional(CONF_ICHG[0].lower()): number.number_schema(
             BqNumber,
-            unit_of_measurement="mA",
+            unit_of_measurement="A",
             device_class=DEVICE_CLASS_CURRENT,
             entity_category=ENTITY_CATEGORY_CONFIG
 
@@ -33,12 +34,18 @@ CONFIG_SCHEMA = cv.Schema(
             device_class=DEVICE_CLASS_VOLTAGE,
             entity_category=ENTITY_CATEGORY_CONFIG
         ),
+        cv.Optional(CONF_BUVLO[0].lower()): number.number_schema(
+            BqNumber,
+            unit_of_measurement="V",
+            device_class=DEVICE_CLASS_VOLTAGE,
+            entity_category=ENTITY_CATEGORY_CONFIG
+        ),
     })
 
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_BQ_ID])
 
-    for sensor_type in [CONF_ICHG, CONF_VBAT]:
+    for sensor_type in [CONF_ICHG, CONF_VBAT, CONF_BUVLO]:
         if conf := config.get(sensor_type[0].lower()):
             var = await number.new_number(conf, min_value=sensor_type[1], max_value=sensor_type[2], step=sensor_type[3])
 
@@ -49,6 +56,8 @@ async def to_code(config):
                 cg.add(parent.setIcgh(var))
             elif sensor_type[0] == CONF_VBAT[0]:
                 cg.add(parent.setVbatReg(var))
+            elif sensor_type[0] == CONF_BUVLO[0]:
+                cg.add(parent.setBuvlo(var))
         else:
             print(f"Skip {sensor_type=}")
                 

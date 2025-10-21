@@ -219,11 +219,15 @@ void BQ21088::update() {
 
   #ifdef USE_NUMBER
   if (this->ichg_number_ != nullptr){
-    this->ichg_number_->publish_state(icgh.get_charge_current_mA());
+    this->ichg_number_->publish_state(icgh.get_charge_current_mA()/1000.0f);
   }
   if (this->vbat_reg_number_ != nullptr) {
     auto vbat = this->read_vbat_ctrl();
     this->vbat_reg_number_->publish_state(vbat.get_vbat_reg_voltage());
+  }
+  if (this->buvlo_number_ != nullptr) {
+    auto reg = this->read_chargectl1();
+    this->buvlo_number_->publish_state(reg.buvlo_as_number());
   }
   #endif
 

@@ -269,6 +269,27 @@ struct CHARGECTRL1 {
              | (ILIM_INT_MASK << 1)
              | VINDPM_INT_MASK;
     }
+
+    float buvlo_as_number() const {
+        switch (BUVLO) {
+            case BUVLO_t::BUVLO_2V0:
+                return 2.0f;
+            case BUVLO_t::BUVLO_2V2:
+                return 2.2f;
+            case BUVLO_t::BUVLO_2V4:
+                return 2.4f;
+            case BUVLO_t::BUVLO_2V6:
+                return 2.6f;
+            case BUVLO_t::BUVLO_2V8:
+                return 2.8f;
+            case BUVLO_t::BUVLO_3V0:
+            case BUVLO_t::BUVLO_3V0b:
+            case BUVLO_t::BUVLO_3V0c:
+                return 3.0f;
+            default:
+                return NAN;
+        }
+    };
 };
 
 // IC_CTRL Register (0x7)

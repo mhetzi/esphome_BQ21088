@@ -70,6 +70,7 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
     #ifdef USE_NUMBER
     void setVbatReg   (number::Number *vbat_reg_number_   ) {this->vbat_reg_number_   = vbat_reg_number_;};
     void setIcgh      (number::Number *ichg_number_       ) {this->ichg_number_       = ichg_number_;};
+    void setBuvlo     (number::Number *buvlo_number_      ) {this->buvlo_number_      = buvlo_number_;};
     #endif
     #ifdef USE_SENSOR
     void setChgStatus (sensor::Sensor *chg_status_sensor_ ) {this->chg_status_sensor_ = chg_status_sensor_;};
@@ -91,6 +92,7 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
     #ifdef USE_NUMBER
     number::Number *vbat_reg_number_{nullptr};
     number::Number *ichg_number_{nullptr};
+    number::Number *buvlo_number_{nullptr};
     #endif
     #ifdef USE_SENSOR
     sensor::Sensor *chg_status_sensor_{nullptr};
