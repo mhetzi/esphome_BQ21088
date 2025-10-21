@@ -4,8 +4,8 @@
 
 enum CHG_STATUS_t : uint8_t {
     NOT_CHARGING = 0b00,
-    PRECHARGE   = 0b01,
-    FAST_CHARGE = 0b10,
+    CONSTANT_CURRENT   = 0b01,
+    CONSTANT_VOLTAGE = 0b10,
     CHARGE_DONE = 0b11
 };
 
@@ -106,8 +106,8 @@ struct STAT0 {
     const char* get_chg_status_string() {
         switch (this->CHG_STAT) {
             case NOT_CHARGING: return "Not Charging";
-            case PRECHARGE:    return "Precharge";
-            case FAST_CHARGE:  return "Fast Charge";
+            case CONSTANT_CURRENT:    return "Constant Current";
+            case CONSTANT_VOLTAGE:  return "Constant Voltage";
             case CHARGE_DONE:  return "Charge Done";
             default:           return "Unknown";
         }

@@ -8,8 +8,10 @@ namespace bq21088 {
         switch (this->st) {
             case SwitchType::CHARGE_DISABLE: {
                 auto charge = this->parent->read_ichg_ctrl();
-                charge.CHG_DIS = state;
-                this->parent->write_ichg_ctrl(charge);
+                if (!charge)
+                    return;
+                charge->CHG_DIS = state;
+                this->parent->write_ichg_ctrl(charge.value());
                 break;
             }
             default:

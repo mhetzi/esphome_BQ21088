@@ -19,6 +19,7 @@
 #endif
 
 #include "esphome/core/gpio.h"
+#include <optional>
 
 namespace esphome {
 namespace bq21088 {
@@ -35,24 +36,24 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
     void update() override;
 
     // BQ21088 specific functions
-    STAT0 read_stat0();
-    STAT1 read_stat1();
-    FLAG0 read_flag0();
-    VBAT_CTRL read_vbat_ctrl();
+    std::optional<STAT0> read_stat0();
+    std::optional<STAT1> read_stat1();
+    std::optional<FLAG0> read_flag0();
+    std::optional<VBAT_CTRL> read_vbat_ctrl();
     esphome::i2c::ErrorCode write_vbat_ctrl(const VBAT_CTRL &vbat_ctrl);
-    ICHG_CTRL read_ichg_ctrl();
+    std::optional<ICHG_CTRL> read_ichg_ctrl();
     esphome::i2c::ErrorCode write_ichg_ctrl(const ICHG_CTRL &ichg_ctrl);
-    CHARGECTRL0 read_chargectl0();
+    std::optional<CHARGECTRL0> read_chargectl0();
     esphome::i2c::ErrorCode write_chargectl0(const CHARGECTRL0 &chargectl0);
-    CHARGECTRL1 read_chargectl1();
+    std::optional<CHARGECTRL1> read_chargectl1();
     esphome::i2c::ErrorCode write_chargectl1(const CHARGECTRL1 &chargectl1);
-    IC_CTRL read_ic_ctrl();
+    std::optional<IC_CTRL> read_ic_ctrl();
     esphome::i2c::ErrorCode write_ic_ctrl(const IC_CTRL &ic_ctrl);
-    TMR_ILIM read_tmr_ilim();
+    std::optional<TMR_ILIM> read_tmr_ilim();
     esphome::i2c::ErrorCode write_tmr_ilim(const TMR_ILIM &tmr_ilim);
-    SYS_REG read_sys_reg();
+    std::optional<SYS_REG> read_sys_reg();
     esphome::i2c::ErrorCode write_sys_reg(const SYS_REG &sys_reg);
-    MASK_ID read_mask_id();
+    std::optional<MASK_ID> read_mask_id();
     esphome::i2c::ErrorCode write_mask_id(const MASK_ID &mask_id);
 
     #ifdef USE_BINARY_SENSOR
