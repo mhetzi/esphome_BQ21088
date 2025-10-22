@@ -17,6 +17,9 @@
 #ifdef USE_SWITCH
 #include "esphome/components/switch/switch.h"
 #endif
+#ifdef USE_SELECT
+#include "esphome/components/select/select.h"
+#endif
 
 #include "esphome/core/gpio.h"
 #include <optional>
@@ -80,6 +83,9 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
     void setChargeDisabledSwitch(switch_::Switch *sw) { this->chg_disable_switch_ = sw; };
     void setVlowvSwitch(switch_::Switch *sw)          { this->vlow_reduce_ = sw; };
     #endif
+    #ifdef USE_SELECT
+    void setSafetyTimerSelect(select::Select *select) { this->safety_timer_select_ = select; };
+    #endif
 
     void setAlarmInput(esphome::InternalGPIOPin *alarm_pin);
 
@@ -103,6 +109,10 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
     #ifdef USE_SWITCH
     switch_::Switch *chg_disable_switch_{nullptr};
     switch_::Switch *vlow_reduce_{nullptr};
+    #endif
+
+    #ifdef USE_SELECT
+    select::Select *safety_timer_select_{nullptr};
     #endif
 
     esphome::InternalGPIOPin *alarm_pin{nullptr};

@@ -11,7 +11,7 @@ from .. import (
 DEPENDENCIES = ["bq21088"]
 
 BqSwitch = bq21088_ns.class_("BqSwitch", switch.Switch)
-BqSwitchTypeEnum = bq21088_ns.enum("SwitchType", True)
+BqSwitchTypeEnum = bq21088_ns.enum("BQ_SwitchType", True)
 
 CONF_CHG = "CHARGE_DISABLE"
 CONF_vlowv = "REDUCE_PRECHARGE"

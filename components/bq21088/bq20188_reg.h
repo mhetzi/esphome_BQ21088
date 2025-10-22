@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
+#include <array>
 
 enum CHG_STATUS_t : uint8_t {
     NOT_CHARGING = 0b00,
@@ -292,14 +294,15 @@ struct CHARGECTRL1 {
     };
 };
 
+static const std::array<std::string, 4> safety_timer_strings = {"3h", "6h", "12h", "disabled"};
 // IC_CTRL Register (0x7)
 struct IC_CTRL {
     uint8_t WATCHDOG_SEL : 2;
     uint8_t SAFETY_TIMER : 2;
-    uint8_t TMR_EN : 1;
-    uint8_t VRCH : 1;
-    uint8_t VLOWV_SEL : 1;
-    uint8_t TS_EN : 1;
+    bool TMR_EN     : 1;
+    bool VRCH       : 1;
+    bool VLOWV_SEL  : 1;
+    bool TS_EN      : 1;
 
     IC_CTRL(uint8_t reg) {
         WATCHDOG_SEL    = reg & 0x03;
@@ -317,6 +320,22 @@ struct IC_CTRL {
              | (TMR_EN << 4)
              | (SAFETY_TIMER << 2)
              | WATCHDOG_SEL;
+    }
+
+    const std::string get_safety_timer_string(){
+        return safety_timer_strings[SAFETY_TIMER];
+    }
+
+    void set_safety_timer_from_string(const std::string &str) {
+        if (str.compare(safety_timer_strings[0]) == 0){
+            SAFETY_TIMER = 0;
+        } else if (str.compare(safety_timer_strings[1]) == 0){
+            SAFETY_TIMER = 1;
+        } else if (str.compare(safety_timer_strings[2]) == 0){
+            SAFETY_TIMER = 2;
+        } else if (str.compare(safety_timer_strings[3]) == 0){
+            SAFETY_TIMER = 3;
+        }
     }
 };
 

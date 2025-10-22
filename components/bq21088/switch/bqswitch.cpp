@@ -6,7 +6,7 @@ namespace bq21088 {
     static const char* TAG = "BQ21088.Switch"; 
     void BqSwitch::write_state(bool state){
         switch (this->st) {
-            case SwitchType::CHARGE_DISABLE: {
+            case BQ_SwitchType::CHARGE_DISABLE: {
                 auto charge = this->parent->read_ichg_ctrl();
                 if (!charge)
                     return;
@@ -14,7 +14,7 @@ namespace bq21088 {
                 this->parent->write_ichg_ctrl(charge.value());
                 break;
             }
-            case SwitchType::REDUCE_PRECHARGE:{
+            case BQ_SwitchType::REDUCE_PRECHARGE:{
                 auto ic = this->parent->read_ic_ctrl();
                 if (!ic) return;
                 ic->VLOWV_SEL = state;
@@ -30,7 +30,7 @@ namespace bq21088 {
         this->parent = parent;
     }
 
-    void BqSwitch::set_type(SwitchType st) {
+    void BqSwitch::set_type(BQ_SwitchType st) {
         this->st = st;
     }
 }

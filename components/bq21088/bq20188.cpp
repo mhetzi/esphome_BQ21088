@@ -267,12 +267,13 @@ void BQ21088::update() {
   }
   #endif
 
+  auto ic = this->read_ic_ctrl();
+
   #ifdef USE_SWITCH
   if (this->chg_disable_switch_ != nullptr) {
     this->chg_disable_switch_->publish_state( icgh ? icgh->CHG_DIS : false);
   }
-  if (this->vlow_reduce_ != nullptr) {
-    auto ic = this->read_ic_ctrl();
+  if (this->vlow_reduce_ != nullptr && ic.has_value()) {
     this->vlow_reduce_->publish_state( ic ? ic->VLOWV_SEL : false );
   }
   #endif
@@ -280,6 +281,12 @@ void BQ21088::update() {
   #ifdef USE_SENSOR
   if (this->chg_status_sensor_ != nullptr) {
     this->chg_status_sensor_->publish_state( stat0.has_value() ? stat0->CHG_STAT*1.0f : NAN );
+  }
+  #endif
+
+  #ifdef USE_SELECT
+  if (this->safety_timer_select_ != nullptr && ic.has_value()) {
+    this->safety_timer_select_->publish_state( ic->get_safety_timer_string() );
   }
   #endif
 }
