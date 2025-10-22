@@ -16,7 +16,7 @@ bq21088:
   id: bq_test
   int_pin:
     number: 25
-    mode: 
+    mode:
       pullup: true
       input: true
 
