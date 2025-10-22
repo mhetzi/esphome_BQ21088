@@ -14,20 +14,23 @@ BqSwitch = bq21088_ns.class_("BqSwitch", switch.Switch)
 BqSwitchTypeEnum = bq21088_ns.enum("SwitchType", True)
 
 CONF_CHG = "CHARGE_DISABLE"
+CONF_vlowv = "REDUCE_PRECHARGE"
 
 CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(CONF_BQ_ID): cv.use_id(BQ21088),
         cv.Optional(CONF_CHG.lower()): switch.switch_schema(
             BqSwitch,
-
+        ),
+        cv.Optional(CONF_vlowv.lower()): switch.switch_schema(
+            BqSwitch,
         ),
     })
 
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_BQ_ID])
 
-    for switch_type in [CONF_CHG]:
+    for switch_type in [CONF_CHG, CONF_vlowv]:
         if conf := config.get(switch_type.lower()):
             var = await switch.new_switch(conf)
             cg.add(var.set_parent(parent))
@@ -36,3 +39,5 @@ async def to_code(config):
 
             if switch_type == CONF_CHG:
                 cg.add(parent.setChargeDisabledSwitch(var))
+            elif switch_type == CONF_vlowv:
+                cg.add(parent.setVlowvSwitch(var))

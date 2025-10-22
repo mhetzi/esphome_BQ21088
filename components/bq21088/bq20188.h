@@ -78,6 +78,7 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
     #endif
     #ifdef USE_SWITCH
     void setChargeDisabledSwitch(switch_::Switch *sw) { this->chg_disable_switch_ = sw; };
+    void setVlowvSwitch(switch_::Switch *sw)          { this->vlow_reduce_ = sw; };
     #endif
 
     void setAlarmInput(esphome::InternalGPIOPin *alarm_pin);
@@ -101,6 +102,7 @@ class BQ21088 : public PollingComponent, public i2c::I2CDevice {
 
     #ifdef USE_SWITCH
     switch_::Switch *chg_disable_switch_{nullptr};
+    switch_::Switch *vlow_reduce_{nullptr};
     #endif
 
     esphome::InternalGPIOPin *alarm_pin{nullptr};

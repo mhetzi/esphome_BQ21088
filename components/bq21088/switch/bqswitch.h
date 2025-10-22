@@ -8,6 +8,7 @@ namespace bq21088 {
 
 enum SwitchType {
     CHARGE_DISABLE = 0,
+    REDUCE_PRECHARGE,
     ST_UNKNOWN
 };
 

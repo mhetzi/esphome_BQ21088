@@ -271,6 +271,10 @@ void BQ21088::update() {
   if (this->chg_disable_switch_ != nullptr) {
     this->chg_disable_switch_->publish_state( icgh ? icgh->CHG_DIS : false);
   }
+  if (this->vlow_reduce_ != nullptr) {
+    auto ic = this->read_ic_ctrl();
+    this->vlow_reduce_->publish_state( ic ? ic->VLOWV_SEL : false );
+  }
   #endif
 
   #ifdef USE_SENSOR

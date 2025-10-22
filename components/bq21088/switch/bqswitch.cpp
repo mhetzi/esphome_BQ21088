@@ -14,6 +14,13 @@ namespace bq21088 {
                 this->parent->write_ichg_ctrl(charge.value());
                 break;
             }
+            case SwitchType::REDUCE_PRECHARGE:{
+                auto ic = this->parent->read_ic_ctrl();
+                if (!ic) return;
+                ic->VLOWV_SEL = state;
+                this->parent->write_ic_ctrl(ic.value());
+                break;
+            }
             default:
                 break;
         }
