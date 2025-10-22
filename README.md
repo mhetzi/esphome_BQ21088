@@ -38,6 +38,8 @@ switch:
     bq21088_id: bq_test
     charge_disable:
       name: Laden deaktivieren
+    reduce_precharge:
+      name: Precharge Voltage 2.8V
 
 number:
   - platform: bq21088
@@ -46,6 +48,8 @@ number:
       name: Battery Endladespannung
     icgh:
       name: Battery Ladestrom
+    buvlo:
+      name: Battery Undervoltage Lockout
 
 sensor:
   - platform: bq21088
@@ -62,6 +66,14 @@ binary_sensor:
       name: "Battery Overcurrent Protection"
     batt_uvlo_fault:
       name: "Battery Undervoltage Protection"
+
+
+select:
+  - platform: bq21088
+    bq21088_id: bq_test
+    safety_timer:
+      name: Safety Timer
+      device_id: charging_channel0
 
 ```
 
