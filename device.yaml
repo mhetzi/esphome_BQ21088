@@ -2,6 +2,9 @@
 esphome:
   name: components_test
   build_path: build/components_test
+  devices:
+    - id: charging_channel0
+      name: Laden Kanal 1
 
 esp32:
   board: esp32dev
@@ -18,3 +21,65 @@ external_components:
     components: [bq21088]
     refresh: always
 
+i2c:
+  - scl: GPIO15
+    sda: GPIO05
+    frequency: 10kHz
+    id: bus_a
+
+bq21088:
+  - i2c_id: bus_a
+    id: bq_test
+    update_interval: 10s
+
+switch:
+  - platform: bq21088
+    bq21088_id: bq_test
+    charge_disable:
+      name: Laden deaktivieren
+      restore_mode: ALWAYS_ON
+      device_id: charging_channel0
+    reduce_precharge:
+      name: Precharge Voltage 2.8V
+      device_id: charging_channel0
+
+number:
+  - platform: bq21088
+    bq21088_id: bq_test
+    vbat:
+      name: Battery Endladespannung
+      id: batt_endvoltage
+      device_id: charging_channel0
+    icgh:
+      name: Battery Ladestrom
+      device_id: charging_channel0
+    buvlo:
+      name: Battery Undervoltage Lockout
+      device_id: charging_channel0
+
+sensor:
+  - platform: bq21088
+    bq21088_id: bq_test
+    charge_status:
+      name: Ladezustand
+      device_id: charging_channel0
+
+binary_sensor:
+  - platform: bq21088
+    bq21088_id: bq_test
+    vin_pwr_good:
+      name: VIN Power good
+      device_id: charging_channel0
+    batt_ocp_fault:
+      name: "Battery Overcurrent Protection"
+      device_id: charging_channel0
+    batt_uvlo_fault:
+      name: "Battery Undervoltage Protection"
+      device_id: charging_channel0
+
+select:
+  - platform: bq21088
+    bq21088_id: bq_test
+    safety_timer:
+      name: Safety Timer
+      device_id: charging_channel0
