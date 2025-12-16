@@ -24,7 +24,7 @@ source "${ESPHOME_VENV}/bin/activate"
 ESPHOME_VERSION=$("$python_bin" -m esphome --version | awk '{print $2}')
 echo "ESPhome version: $ESPHOME_VERSION"
 
-"$python_bin" -m pip install esphome pip cairosvg --upgrade
+"$python_bin" -m pip install --upgrade  esphome pip cairosvg "ruamel.yaml.clib>=0.2.14"
 #export ESPHOME_BUILD_PATH
 
 echo "Use virtual evironment at: $ESPHOME_VENV"
